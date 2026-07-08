@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoHabit</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+
+<!-- ============ LOGIN SCREEN ============ -->
+<div id="login-screen" class="login-screen">
+  <div class="login-card">
+    <div class="login-logo">🌿</div>
+    <h1>EcoHabit</h1>
+    <p class="muted">Live sustainably</p>
+
+    <div id="login-form">
+      <input id="login-username" type="text" placeholder="Username" autocomplete="username">
+      <input id="login-password" type="password" placeholder="Password" autocomplete="current-password">
+      <button class="btn btn-primary btn-block" onclick="doLogin()">Log In</button>
+      <button class="btn btn-outline btn-block" onclick="showRegister()">Create Account</button>
+    </div>
+
+    <div id="register-form" class="hidden">
+      <input id="register-username" type="text" placeholder="Username">
+      <input id="register-email" type="email" placeholder="Email (optional)">
+      <input id="register-password" type="password" placeholder="Password (min 4 characters)">
+      <button class="btn btn-primary btn-block" onclick="doRegister()">Create Account</button>
+      <button class="btn btn-outline btn-block" onclick="showLogin()">Back to Log In</button>
+    </div>
+
+    <p id="login-error" class="error-text hidden"></p>
+  </div>
+</div>
+
+<!-- ============ MAIN APP ============ -->
+<div id="app-shell" class="app-shell hidden">
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-icon">🌿</div>
+      <div>
+        <div class="brand-name">EcoHabit</div>
+        <div class="brand-sub">Live sustainably</div>
+      </div>
+    </div>
+
+    <div class="ecobits-pill">
+      <div class="ecobits-label">🪙 Your EcoBits</div>
+      <div class="ecobits-value" id="sidebar-ecobits">0</div>
+    </div>
+
+    <div class="nav-list">
+      <div class="nav-item" data-page="home"><span class="nav-icon">🏠</span>Home</div>
+      <div class="nav-item" data-page="loghabit"><span class="nav-icon">🌱</span>Log Habit</div>
+      <div class="nav-item" data-page="compare"><span class="nav-icon">📈</span>Compare</div>
+      <div class="nav-item" data-page="myplants"><span class="nav-icon">🌾</span>My Plants</div>
+      <div class="nav-item" data-page="social"><span class="nav-icon">👥</span>Social</div>
+      <div class="nav-item" data-page="ecostore"><span class="nav-icon">🛍️</span>EcoStore</div>
+      <div class="nav-item" data-page="leaderboard"><span class="nav-icon">🏆</span>Leaderboard</div>
+      <div class="nav-item" data-page="recyclingmap"><span class="nav-icon">📍</span>Recycling Map</div>
+      <div class="nav-item" data-page="profile"><span class="nav-icon">👤</span>Profile</div>
+      <div class="nav-item" data-page="settings"><span class="nav-icon">⚙️</span>Settings</div>
+    </div>
+  </nav>
+
+  <main class="content" id="content">
+    <!-- pages render here -->
+  </main>
+</div>
+
+<!-- ============ AI ASSISTANT WIDGET ============ -->
+<div id="assistant-widget" class="assistant-widget hidden">
+  <button id="assistant-toggle" class="assistant-fab" onclick="toggleAssistant()">🤖</button>
+  <div id="assistant-panel" class="assistant-panel hidden">
+    <div class="assistant-header">
+      <span>🤖 EcoHabit Assistant</span>
+      <button class="assistant-close" onclick="toggleAssistant()">✕</button>
+    </div>
+    <div id="assistant-messages" class="assistant-messages">
+      <div class="assistant-msg assistant-msg-bot">Hi! Ask me anything — what habit to try, where to recycle, or whatever's on your mind 🌍</div>
+    </div>
+    <div class="assistant-input-row">
+      <input id="assistant-input" type="text" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter') sendAssistantMessage()">
+      <button class="btn btn-primary" onclick="sendAssistantMessage()">➤</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TOAST ============ -->
+<div id="toast" class="toast hidden"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
