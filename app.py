@@ -13,7 +13,7 @@ Then open http://localhost:5000
 import os
 import secrets
 from functools import wraps
-from flask import Flask, request, jsonify, session, render_template
+from flask import Flask, request, jsonify, session, render_template, send_from_directory
 
 from database import EcoDatabase, TRUST_GATE
 from carbon_data import (
@@ -350,6 +350,10 @@ def assistant():
 
     return jsonify({"reply": reply, "ai_available": openai_client.ai_available()})
 
+
+@app.route("/sw.js")
+def service_worker():
+    return send_from_directory("static", "sw.js", mimetype="application/javascript")
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
